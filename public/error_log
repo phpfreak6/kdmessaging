@@ -1,0 +1,1 @@
+[29-Jul-2019 07:51:05 UTC] PHP Fatal error:  Cannot use Auth as Auth because the name is already in use in /home3/westhav7/public_html/aspiration/app/Http/Controllers/api/ApiController.php on line 8

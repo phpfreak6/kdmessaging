@@ -1,0 +1,4 @@
+.btn-primary:focus {
+    background-color: #000080 !important;
+    border-color: #000080 !important;
+}
