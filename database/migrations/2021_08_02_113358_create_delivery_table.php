@@ -21,6 +21,7 @@ class CreateDeliveryTable extends Migration {
 			$table->string('phone_number')->nullable();
 			$table->string('message', 3000)->nullable();
 			$table->string('message_id')->nullable()->index('message_id');
+			$table->string('price')->nullable();
 			$table->string('meta_data', 1000)->nullable();
 			$table->dateTime('delivery_time')->nullable();
 			$table->string('type')->nullable();
@@ -28,6 +29,7 @@ class CreateDeliveryTable extends Migration {
 			$table->boolean('bad_number')->nullable();
 			$table->boolean('opted_out')->nullable();
 			$table->string('status')->nullable();
+			$table->string('status_message', 1000)->nullable();
 			$table->timestamps();
 		});
 	}

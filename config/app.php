@@ -154,8 +154,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Way\Generators\GeneratorsServiceProvider::class,
-        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Mavinoo\Batch\BatchServiceProvider::class,
         App\Providers\WebsiteSettingsProvider::class,

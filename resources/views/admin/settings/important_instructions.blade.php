@@ -93,7 +93,7 @@
                     <p><code>
                             &lt;?php<br/>
                             $request = curl_init(&#39;<?= url('/api/setDeliveryReport') ?>&#39;);<br />
-                            curl_setopt($request, CURLOPT_POSTFIELDS, [&#39;message_info_hash&#39; =&gt; $_GET[&#39;message_info_hash&#39;]]);<br />
+                            curl_setopt($request, CURLOPT_POSTFIELDS, [&#39;message_info_hash&#39; =&gt; $_GET[&#39;ENCRYPTED_KEY&#39;]]);<br />
                             curl_setopt($request, CURLOPT_RETURNTRANSFER, true);<br />
                             $result = json_decode(curl_exec($request));<br />
                             curl_close($request);<br/>
@@ -105,12 +105,12 @@
                         </code>
                     </p>
                     <p>
-                        Create .htaccess file in your web root and enter following there:<br>
+                        Create .htaccess file in the same directory where you place the above script and enter following:<br>
                         <br>
                         <code>
                             Options +FollowSymLinks<br>
                             RewriteEngine on<br>
-                            RewriteRule ^file-name/([a-zA-Z0-9]+)$ file-name.php?message_info_hash=$1<br>
+                            RewriteRule ^(.*)/(.*) $1.php?ENCRYPTED_KEY=$2<br>
                         </code>
                     </p>
                 </div>
