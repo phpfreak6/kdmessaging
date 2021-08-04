@@ -3,6 +3,13 @@
 Route::get('/test_message', 'UserController@test_message');
 Route::get('/test', 'CampaignController@test');
 
+
+Route::get('run-command', function () {
+    \Artisan::call('pinpoint:sendsmsmessages');
+    exit("Command executed successfully");
+});
+
+
 /* ADMIN ROUTES */
 
 Route::match(['get', 'post'], '/admin', 'admin\UserController@login');
@@ -90,4 +97,3 @@ Route::group(['middleware' => 'user'], function () {
 });
 
 Route::get('/testing_whatsapp', 'CampaignController@testing_whatsapp');
-
