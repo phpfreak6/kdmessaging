@@ -152,7 +152,7 @@ class ListController extends Controller {
             if (!empty($postArr['send_whatsapp_optin'])) {
                 try {
                     $brandArr = Brand::find(Auth::user()->brand_id);
-                    $client = new Client($brandArr->whatsapp_account_id, $brandArr->whatsapp_authentication_token);
+                    $client = new Client($brandArr->sub_account_id, $brandArr->sub_account_token);
                     $result = $client->messages->create('whatsapp:' . $postArr['phone_number'], ['from' => 'whatsapp:' . $brandArr->whatsapp_phone_number, 'body' => $brandArr['whatsapp_optin_message']]);
                     Delivery::insert(
                             [
@@ -252,7 +252,7 @@ class ListController extends Controller {
                         /* SEND WHATSAPP OPT IN NOTIFICATION */
                         if ($request->send_whatsapp_optin_message === 'true') {
                             try {
-                                $client = new Client($brandArr->whatsapp_account_id, $brandArr->whatsapp_authentication_token);
+                                $client = new Client($brandArr->sub_account_id, $brandArr->sub_account_token);
                                 $result = $client->messages->create('whatsapp:' . $sheet_row['phone_number'], ['from' => 'whatsapp:' . $brandArr->whatsapp_phone_number, 'body' => $brandArr['whatsapp_optin_message']]);
                                 Delivery::insert(
                                         [

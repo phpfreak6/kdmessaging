@@ -89,7 +89,7 @@
                 <?php echo Form::label('', '', ['class' => 'col-sm-3 control-label no-padding-right']); ?>      
                 <div class="col-sm-7">    
                     <label>
-                        <input name="twilio_sub_account" value="1" type="checkbox" <?= !empty($brandArr['whatsapp_account_id']) ? 'disabled' : ''; ?>> Create Twilio Sub-Account
+                        <input name="twilio_sub_account" value="1" type="checkbox" <?= !empty($brandArr['sub_account_id']) ? 'disabled' : ''; ?>> Create Twilio Sub-Account
                     </label>      
                 </div>      
             </div>

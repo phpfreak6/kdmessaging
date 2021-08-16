@@ -21,7 +21,7 @@ class WebHookController extends Controller {
 
     public function receiveMessageWebhook(Request $request) {
         $webhookArr = $request->all();
-        $brandArr = Brand::where('whatsapp_account_id', '=', $webhookArr['AccountSid'])->first();
+        $brandArr = Brand::where('sub_account_id', '=', $webhookArr['AccountSid'])->first();
         if (!empty($webhookArr['To']) && !empty($webhookArr['From'])) {
             if (strcasecmp(trim($webhookArr['Body']), 'OPT IN') == 0) {
                 List_number::where(
