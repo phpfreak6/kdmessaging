@@ -55,8 +55,9 @@ class Messaging extends Model {
     public function sendWhatsappMessage($message, $message_type, $type, $phone_number, $brandObj, $campaignObj) {
         $client = new Client($brandObj->sub_account_id, $brandObj->sub_account_token);
         $result = $client->messages->create("whatsapp:" . $phone_number, [
-            'from' => 'whatsapp:' . config('website_settings.whatsapp_phone_number'),
-            'body' => $message
+            'from' => 'whatsapp:' . $brandObj->whatsapp_phone_number,
+            'body' => $message,
+            'statusCallback' => url('api/webhooks/whatsappMessageStatusHook')
         ]);
         Delivery::insert(
                 [
