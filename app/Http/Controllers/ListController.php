@@ -153,7 +153,12 @@ class ListController extends Controller {
                 try {
                     $brandArr = Brand::find(Auth::user()->brand_id);
                     $client = new Client($brandArr->sub_account_id, $brandArr->sub_account_token);
-                    $result = $client->messages->create('whatsapp:' . $postArr['phone_number'], ['from' => 'whatsapp:' . $brandArr->whatsapp_phone_number, 'body' => $brandArr['whatsapp_optin_message']]);
+                    $result = $client->messages->create('whatsapp:' . $postArr['phone_number'],
+                            [
+                                'from' => 'whatsapp:' . $brandArr->whatsapp_phone_number,
+                                'body' => $brandArr['whatsapp_optin_message'],
+                                'statusCallback' => url('api/webhooks/whatsappMessageStatusHook')
+                            ]);
                     Delivery::insert(
                             [
                                 'brand_id' => Auth::user()->brand_id,
@@ -253,7 +258,12 @@ class ListController extends Controller {
                         if ($request->send_whatsapp_optin_message === 'true') {
                             try {
                                 $client = new Client($brandArr->sub_account_id, $brandArr->sub_account_token);
-                                $result = $client->messages->create('whatsapp:' . $sheet_row['phone_number'], ['from' => 'whatsapp:' . $brandArr->whatsapp_phone_number, 'body' => $brandArr['whatsapp_optin_message']]);
+                                $result = $client->messages->create('whatsapp:' . $sheet_row['phone_number'],
+                                        [
+                                            'from' => 'whatsapp:' . $brandArr->whatsapp_phone_number,
+                                            'body' => $brandArr['whatsapp_optin_message'],
+                                            'statusCallback' => url('api/webhooks/whatsappMessageStatusHook')
+                                        ]);
                                 Delivery::insert(
                                         [
                                             'brand_id' => Auth::user()->brand_id,
