@@ -15,7 +15,10 @@ class WebHookController extends Controller {
 
     public function whatsappMessageStatusHook(Request $request) {
         if ($request->isMethod('post')) {
-            Delivery::where('message_id', '=', $request->MessageSid)->update(['status' => strtoupper($request->MessageStatus)]);
+            Delivery::where('message_id', '=', $request->MessageSid)->update([
+                'status' => strtoupper($request->MessageStatus),
+                'status_message' => (!empty($request->ErrorMessage)) ? $request->ErrorMessage : 'N/A'
+            ]);
         }
     }
 
@@ -44,7 +47,10 @@ class WebHookController extends Controller {
 
     public function smsMessageStatusHook(Request $request) {
         if ($request->isMethod('post')) {
-            Delivery::where('message_id', '=', $request->MessageSid)->update(['status' => strtoupper($request->MessageStatus)]);
+            Delivery::where('message_id', '=', $request->MessageSid)->update([
+                'status' => strtoupper($request->MessageStatus),
+                'status_message' => (!empty($request->ErrorMessage)) ? $request->ErrorMessage : 'N/A'
+            ]);
         }
     }
 

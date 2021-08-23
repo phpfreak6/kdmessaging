@@ -35,13 +35,10 @@
                     <td><span class="text-primary">Status</span></td>
                     <td><?= $deliveryArr['status']; ?></td>
                 </tr>
-				
-				@if( $deliveryArr['status'] == "Error")
-				<tr>
+                <tr>
                     <td><span class="text-primary">Error Message</span></td>
-                    <td><?= $deliveryArr['status_message'] ?: 'N/A'; ?></td>
+                    <td><?= $deliveryArr['status_message'] ?? 'N/A'; ?></td>
                 </tr>
-				@endif
                 <tr>
                     <td><span class="text-primary">Message ID</span></td>
                     <td><?= $deliveryArr['message_id'] ?: 'N/A'; ?></td>
