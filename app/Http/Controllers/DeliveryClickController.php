@@ -21,7 +21,7 @@ class DeliveryClickController extends Controller {
 
     public function index(Request $request) {
         $dataArr['title'] = 'Manage Delivery Clicks';
-        return view('frontend/delivery_clicks/index', $dataArr);
+        return view('frontend/delivery_clicks/index',$dataArr);
     }
 
     public function getDeliveryClicksDatatable(Request $request) {

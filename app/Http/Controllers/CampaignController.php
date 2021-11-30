@@ -57,12 +57,9 @@ class CampaignController extends Controller {
             $postArr = $request->except('_token');
             $postArr['brand_id'] = Auth::user()->brand_id;
             if (!empty($request->campaign_hash)) {
-
                 Campaign::where('campaign_hash', '=', $postArr['campaign_hash'])->update($postArr);
-
                 return redirect('/campaigns/test_campaign/' . $postArr['campaign_hash'])->with('success', 'Campaign Updated Successfully');
             } else {
-
                 $campaign_id = Campaign::insertGetId($postArr);
                 $campaignObj = Campaign::find($campaign_id);
                 $campaignObj->campaign_hash = encodeId($campaign_id);
@@ -70,7 +67,6 @@ class CampaignController extends Controller {
                 return redirect('/campaigns/test_campaign/' . $campaignObj->campaign_hash)->with('success', 'Campaign Created Successfully');
             }
         }
-
         $dataArr['title'] = 'Add/Edit Campaign';
         $dataArr['brand_code_name'] = Brand::find(Auth::user()->brand_id)->brand_code_name;
         $dataArr['brandArr'] = Brand::find(Auth::user()->brand_id)->toArray();
