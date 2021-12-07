@@ -157,6 +157,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Mavinoo\Batch\BatchServiceProvider::class,
         App\Providers\WebsiteSettingsProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------

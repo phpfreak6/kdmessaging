@@ -13,6 +13,7 @@
         "laravelcollective/html": "^5.5",
         "maatwebsite/excel": "~2.1.0",
         "mavinoo/laravel-batch": "^2.1",
+        "orangehill/iseed": "^3.0",
         "twilio/sdk": "^6.10",
         "yajra/laravel-datatables-oracle": "^8.13"
     },
