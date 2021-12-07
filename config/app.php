@@ -141,14 +141,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        /*
-         * Package Service Providers...
-         */
+
         Yajra\DataTables\DataTablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        /*
-         * Application Service Providers...
-         */
+
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -158,17 +154,9 @@ return [
         Mavinoo\Batch\BatchServiceProvider::class,
         App\Providers\WebsiteSettingsProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
+		Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
     ],
-    /*
-      |--------------------------------------------------------------------------
-      | Class Aliases
-      |--------------------------------------------------------------------------
-      |
-      | This array of class aliases will be registered when this application
-      | is started. However, feel free to register as many as you wish as
-      | the aliases are "lazy" loaded so they don't hinder performance.
-      |
-     */
+   
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

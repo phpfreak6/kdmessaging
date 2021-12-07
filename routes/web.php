@@ -97,3 +97,8 @@ Route::group(['middleware' => 'user'], function () {
 });
 
 Route::get('/testing_whatsapp', 'CampaignController@testing_whatsapp');
+
+Route::get('logs','\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+
+
