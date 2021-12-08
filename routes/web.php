@@ -94,11 +94,10 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/delivery_clicks/index', 'DeliveryClickController@index');
     Route::post('/delivery_clicks/getDeliveryClicksDatatable', 'DeliveryClickController@getDeliveryClicksDatatable');
     Route::post('/delivery_clicks/deleteDeliveryClick', 'DeliveryClickController@deleteDeliveryClick');
+
+    ## Incoming Messages Listing
+    Route::get('incoming-messages/index', 'IncomingMessageController@index');
 });
 
 Route::get('/testing_whatsapp', 'CampaignController@testing_whatsapp');
-
-Route::get('logs','\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
-
-
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
