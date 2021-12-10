@@ -114,26 +114,6 @@
                 [10, 25, 50, "All"]
             ],
         });
-        // new $.fn.dataTable.Buttons(table, {
-        //     buttons: [{
-        //         text: 'Add Phone Number',
-        //         className: 'btn btn-primary btn-sm',
-        //         action: function(e, dt, node, config) {
-        //             window.location.href = site_url + '/lists/list_number/' + $('#list_hash').val();
-        //         }
-        //     }]
-        // });
-        // new $.fn.dataTable.Buttons(table, {
-        //     buttons: [{
-        //         text: 'Import',
-        //         className: 'btn btn-primary btn-sm click_import',
-        //         action: function(e, dt, node, config) {
-
-        //         }
-        //     }]
-        // });
-        // table.buttons(1, null).container().appendTo('.addButton');
-        // table.buttons(2, null).container().appendTo('.import_button');
     }
 
     $(document).ready(function() {
