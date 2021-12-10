@@ -14,6 +14,7 @@ class IncomingMessage extends Model
         'platform',
         'body',
         'segments',
+        'to_phone',
         'from_phone',
         'file_url',
         'account_id',

@@ -6,15 +6,21 @@
 <section class="content">
     <div class="box">
         <div class="box-body">
-            <?= Form::hidden('list_hash', $list_hash, ['id' => 'list_hash']) ?>
-            <table id="list_numbers_datatable" class="table table-responsive table-striped table-bordered">
+            <input type="hidden" id="whatsapp_phone_number" value="<?= $brandArr['whatsapp_phone_number'] ?>">
+            <input type="hidden" id="short_code" value="<?= $brandArr['short_code'] ?>">
+            <div class="table-header text-right">
+                <button class="btn btn-sm btn-primary" onclick="refreshIncomingMessagesDatatable()"><i class="fa fa-refresh"></i></button>
+            </div>
+            <table id="incoming_messages_datatable" class="table table-responsive table-striped table-bordered">
                 <thead>
                     <tr>
                         <th class="">ID</th>
                         <th class="text-center">Message ID</th>
-                        <th class="text-center">Last Name</th>
-                        <th class="text-center">Phone Number</th>
-                        <th class="text-center">Whatsapp Opt</th>
+                        <th class="text-center">From</th>
+                        <th class="text-center">To</th>
+                        <th class="text-center">Segments</th>
+                        <th class="text-center">Platform</th>
+                        <th class="text-center">File</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -23,17 +29,24 @@
     </div>
 </section>
 <script>
-    function getListNumbersDatatable() {
-        var table = $("#list_numbers_datatable").DataTable({
+    function refreshIncomingMessagesDatatable() {
+        $('#incoming_messages_datatable').DataTable().ajax.reload();
+    }
+
+    function getIncomingMessagesDatatable() {
+        var whatsapp_phone_number = $('#whatsapp_phone_number').val();
+        var short_code = $('#short_code').val();
+        var table = $("#incoming_messages_datatable").DataTable({
             "processing": true,
             "serverSide": true,
             "deferRender": true,
             "ajax": {
-                "url": site_url + '/lists/getListNumbersDatatable',
+                "url": site_url + '/incoming-messages/getIncomingMessagesDatatable',
                 "type": "POST",
                 "data": {
                     '_token': csrf_token,
-                    'list_hash': $('#list_hash').val()
+                    'whatsapp_phone_number': whatsapp_phone_number,
+                    'short_code': short_code
                 }
             },
             "pagingType": "numbers",
@@ -47,32 +60,42 @@
                 {
                     targets: "1",
                     className: "text-center",
-                    data: 'first_name'
+                    data: 'message_id'
                 },
                 {
                     targets: "2",
                     className: "text-center",
-                    data: 'last_name'
+                    data: 'from_phone'
                 },
                 {
                     targets: "3",
                     className: "text-center",
-                    data: 'phone_number'
+                    data: 'to_phone'
                 },
                 {
                     targets: "4",
                     className: "text-center",
-                    data: 'whatsapp_opt_representation'
+                    data: 'segments'
                 },
                 {
                     targets: "5",
+                    className: "text-center",
+                    data: 'platform'
+                },
+                {
+                    targets: "6",
+                    className: "text-center",
+                    data: 'file_url_representation',
+                    "defaultContent": "",
+                },
+                {
+                    targets: "7",
                     sortable: false,
                     searchable: false,
                     className: "text-center",
                     data: null,
                     "render": function(data, type, full, meta) {
-                        return '<a title="Edit" href="' + site_url + '/lists/list_number/' + $('#list_hash').val() + '/' + data['list_number_hash'] + '" class="btn btn-sm btn-primary" role="button"><i class="fa fa-pencil bigger-130"></i></a>\n\
-                                <a onclick="deleteListPhoneNumber(\'' + data['list_number_hash'] + '\')" title="Delete" class="btn btn-sm btn-danger" role="button"><i class="fa fa-trash-o bigger-130"></i></a>';
+                        return `<a title="View" href="${site_url}/incoming-messages/incoming-message-detail/${data['id']}" class="btn btn-sm btn-primary" role="button"><i class="fa fa-eye bigger-130"></i></a>`;
                     }
                 },
             ],
@@ -84,121 +107,30 @@
                 [10, 25, 50, "All"]
             ],
         });
-        new $.fn.dataTable.Buttons(table, {
-            buttons: [{
-                text: 'Add Phone Number',
-                className: 'btn btn-primary btn-sm',
-                action: function(e, dt, node, config) {
-                    window.location.href = site_url + '/lists/list_number/' + $('#list_hash').val();
-                }
-            }]
-        });
-        new $.fn.dataTable.Buttons(table, {
-            buttons: [{
-                text: 'Import',
-                className: 'btn btn-primary btn-sm click_import',
-                action: function(e, dt, node, config) {
+        // new $.fn.dataTable.Buttons(table, {
+        //     buttons: [{
+        //         text: 'Add Phone Number',
+        //         className: 'btn btn-primary btn-sm',
+        //         action: function(e, dt, node, config) {
+        //             window.location.href = site_url + '/lists/list_number/' + $('#list_hash').val();
+        //         }
+        //     }]
+        // });
+        // new $.fn.dataTable.Buttons(table, {
+        //     buttons: [{
+        //         text: 'Import',
+        //         className: 'btn btn-primary btn-sm click_import',
+        //         action: function(e, dt, node, config) {
 
-                }
-            }]
-        });
-        table.buttons(1, null).container().appendTo('.addButton');
-        table.buttons(2, null).container().appendTo('.import_button');
-    }
-
-    function deleteListPhoneNumber(list_number_hash) {
-        bootbox.confirm("Are you sure you want to delete phone number from this list?", function(result) {
-            if (result) {
-                $.post(site_url + "/lists/deleteListPhoneNumber", {
-                    '_token': csrf_token,
-                    list_number_hash: list_number_hash
-                }, function(data, status) {
-                    if (data == '1') {
-                        flashMessage('Phone Number Deleted Successfully', 'success');
-                        $('#list_numbers_datatable').DataTable().ajax.reload();
-                    } else {
-                        flashMessage('Phone Number Deletion Failed', 'error');
-                    }
-                });
-            }
-        });
-    }
-
-    function onclickImport() {
-        $('.click_import').click(function() {
-            $('body').append('<input id="excel_imported_file" style="display:none;" name="excel_imported_file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">');
-            $('#excel_imported_file').trigger('click');
-            $("#excel_imported_file").unbind('change');
-            $("#excel_imported_file").change(function() {
-                if ($('#excel_imported_file').val() !== '') {
-                    var filename = $("#excel_imported_file").val();
-                    var extension = filename.replace(/^.*\./, '');
-                    var extensionsArr = ['xlsx', 'xlsm', 'xltx', 'xltm', 'xls', 'xlt', 'ods', 'ots', 'slk', 'xml', 'gnumeric', 'htm', 'html', 'csv', 'tsv'];
-                    if (extensionsArr.includes(extension)) {
-                        bootbox.prompt({
-                            title: "Are you sure you want to import this file?",
-                            value: ['1'],
-                            inputType: 'checkbox',
-                            inputOptions: [{
-                                text: 'Send Whatsapp Opt In Message',
-                                value: '1'
-                            }],
-                            callback: function(result) {
-                                if (result) {
-                                    var uploaded_file = $('#excel_imported_file').prop('files')[0];
-                                    var formData = new FormData();
-                                    formData.append('list_hash', $('#list_hash').val());
-                                    formData.append('_token', csrf_token);
-                                    formData.append('uploaded_file', uploaded_file);
-                                    formData.append('send_whatsapp_optin_message', $('.bootbox-input').is(':checked'));
-                                    $.ajax({
-                                        url: site_url + '/lists/uploadExcelFile',
-                                        data: formData,
-                                        processData: false,
-                                        contentType: false,
-                                        type: 'POST',
-                                        beforeSend: function() {
-                                            blockScreen();
-                                        },
-                                        success: function(data) {
-                                            unblockScreen();
-                                            if (data == 'list_updated') {
-                                                flashMessage('List Updated Successfully', 'success');
-                                            } else if (data == 'no_new_records') {
-                                                flashMessage('No New Records Found In Uploaded Spreadsheet', 'success');
-                                            } else {
-                                                toastr.options = {
-                                                    "closeButton": true,
-                                                    "timeOut": "0",
-                                                    "extendedTimeOut": "0"
-                                                };
-                                                toastr.error(data);
-                                            }
-                                            $('#list_numbers_datatable').DataTable().ajax.reload();
-                                            $('#excel_imported_file').remove();
-                                        }
-                                    });
-                                } else {
-                                    $('#excel_imported_file').remove();
-                                }
-                            }
-                        });
-                    } else {
-                        flashMessage('Please Upload A Valid Excel File', 'error');
-                        return false;
-                    }
-
-                } else {
-                    $('#excel_imported_file').remove();
-                }
-
-            });
-        });
+        //         }
+        //     }]
+        // });
+        // table.buttons(1, null).container().appendTo('.addButton');
+        // table.buttons(2, null).container().appendTo('.import_button');
     }
 
     $(document).ready(function() {
-        getListNumbersDatatable();
-        onclickImport();
+        getIncomingMessagesDatatable();
     });
 </script>
 <link src="{{ URL::asset('frontend/theme/plugins/datatables/datatables.min.css')}}">

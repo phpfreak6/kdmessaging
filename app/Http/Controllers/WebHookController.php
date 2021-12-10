@@ -32,9 +32,9 @@ class WebHookController extends Controller
         $webhookArr = $request->all();
 
         ## Extract Phone & Platform
-        $platform = explode(":", $webhookArr['To'])[0];
-        $phone = explode(":", $webhookArr['To'])[1];
-
+        $platform = explode(":", $webhookArr['From'])[0];
+        $to_phone = explode(":", $webhookArr['To'])[1];
+        $from_phone = explode(":", $webhookArr['From'])[1];
 
         $incomingMessageObj = new IncomingMessage();
         $incomingMessageObj->message_id = $webhookArr['MessageSid'];
@@ -42,7 +42,8 @@ class WebHookController extends Controller
         $incomingMessageObj->platform = strtoupper($platform);
         $incomingMessageObj->body = !empty($webhookArr['Body']) ? $webhookArr['Body'] : NULL;
         $incomingMessageObj->segments = $webhookArr['NumSegments'];
-        $incomingMessageObj->from_phone = $phone;
+        $incomingMessageObj->from_phone = $from_phone;
+        $incomingMessageObj->to_phone = $to_phone;
         $incomingMessageObj->file_url = !empty($webhookArr['MediaUrl0']) ? $webhookArr['MediaUrl0'] : NULL;
         $incomingMessageObj->save();
 

@@ -97,6 +97,8 @@ Route::group(['middleware' => 'user'], function () {
 
     ## Incoming Messages Listing
     Route::get('incoming-messages/index', 'IncomingMessageController@index');
+    Route::post('incoming-messages/getIncomingMessagesDatatable', 'IncomingMessageController@getIncomingMessagesDatatable');
+    Route::get('incoming-messages/incoming-message-detail/{incoming_message_id}', 'IncomingMessageController@viewMessageDetail');
 });
 
 Route::get('/testing_whatsapp', 'CampaignController@testing_whatsapp');
