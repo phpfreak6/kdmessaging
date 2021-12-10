@@ -21,6 +21,7 @@
                         <th class="text-center">Segments</th>
                         <th class="text-center">Platform</th>
                         <th class="text-center">File</th>
+                        <th class="text-center">Received At</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -90,6 +91,12 @@
                 },
                 {
                     targets: "7",
+                    className: "text-center",
+                    data: 'created_at',
+                    "defaultContent": "",
+                },
+                {
+                    targets: "8",
                     sortable: false,
                     searchable: false,
                     className: "text-center",
