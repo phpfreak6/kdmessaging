@@ -1,1 +1,2 @@
 [29-Jul-2019 07:51:05 UTC] PHP Fatal error:  Cannot use Auth as Auth because the name is already in use in /home3/westhav7/public_html/aspiration/app/Http/Controllers/api/ApiController.php on line 8
+[23-Dec-2021 06:58:26 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.2.5". You are running 7.0.33. in /home/jumpingc/messaging.gutsyminds.com/vendor/composer/platform_check.php on line 24
