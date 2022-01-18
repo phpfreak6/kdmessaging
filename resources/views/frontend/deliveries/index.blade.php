@@ -38,7 +38,7 @@
             "dom": "<'row'<'col-sm-3'f><' text-center'B><'col-sm-7 text-right'l><'col-sm-2 addButton'>><'row'<'col-sm-12'tr>><'row'<'col-sm-4'i><'col-sm-8'p>>",
             "buttons": [],
             "columns": [
-                {targets: "0", className: "text-center", data: 'DT_RowIndex'},
+                {targets: "0", className: "text-center", data: 'DT_RowIndex', orderable: false, searchable: false},
                 {targets: "1", className: "text-center", data: 'phone_number'},
                 {targets: "2", className: "text-center", data: 'campaign_name'},
                 {targets: "3", className: "text-center", data: 'channel_representation'},

@@ -24,13 +24,13 @@ class DeliveryController extends Controller {
 
     public function getDeliveriesDatatable(Request $request) {
         return datatables()->of(
-                                DB::table('delivery')
-                                ->join('brands', 'brands.id', '=', 'delivery.brand_id')
+                            //    DB::table('delivery')
+                                Delivery::join('brands', 'brands.id', '=', 'delivery.brand_id')
                                 ->leftJoin('campaigns', 'campaigns.id', '=', 'delivery.campaign_id')
                                 ->select('brands.brand_name', 'campaigns.campaign_name', 'delivery.campaign_channel', 'delivery.id', 'delivery.phone_number', 'delivery.message_id', 'delivery.delivery_time', 'delivery.type', 'delivery.bad_number', 'delivery.opted_out', 'delivery.status')
                                 ->where('delivery.brand_id', '=', Auth::user()->brand_id)
                                 ->latest('delivery.created_at')
-                                ->get()
+                            //    ->get()
                         )
                         ->addIndexColumn()
                         ->addColumn('delivery_hash', function ($query) {
